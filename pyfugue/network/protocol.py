@@ -9,11 +9,20 @@ __log__ = Logger()
 
 
 class MUDProtocol(basic.LineReceiver, telnet.TelnetProtocol):
-    delimiter = b'\n'
+    delimiter = b"\n"
 
     def __init__(self):
         self.options = {}
-        for option in [options.EOR, options.NAWS, options.STARTTLS, options.MSSP, options.ZMP, options.TTYPE, options.MSDP, options.TIMING_MARK]:
+        for option in [
+            options.EOR,
+            options.NAWS,
+            options.STARTTLS,
+            options.MSSP,
+            options.ZMP,
+            options.TTYPE,
+            options.MSDP,
+            options.TIMING_MARK,
+        ]:
             self.options[option.code] = option(self)
 
     def _debug(self, *args):
@@ -21,24 +30,26 @@ class MUDProtocol(basic.LineReceiver, telnet.TelnetProtocol):
 
     def lineReceived(self, data):
         self.factory.controller.received(data)
-#        self.factory.controller.applicationDataReceived(data)
+
+    #        self.factory.controller.applicationDataReceived(data)
 
     def dataReceived(self, data):
         super().dataReceived(data)
         if self._buffer:
-            self._debug('PROMPT:', self._buffer)
+            self._debug("PROMPT:", self._buffer)
 
     def unhandledCommand(self, command, argument):
-        __log__.debug(repr(('command', command, argument)))
+        __log__.debug(repr(("command", command, argument)))
 
     def unhandledSubnegotiation(self, command, data):
-        self._debug('subnegotiation', command, data)
+        self._debug("subnegotiation", command, data)
 
     def __enable(self, option, local):
         item = self.options.get(option, None)
-        name = item.name if item else 'unknown'
+        name = item.name if item else "unknown"
         __log__.debug(
-            repr(('enableLocal' if local else 'enableRemote', ord(option), name)))
+            repr(("enableLocal" if local else "enableRemote", ord(option), name))
+        )
         if item:
             if local:
                 return item.enableLocal()
@@ -54,8 +65,7 @@ class MUDProtocol(basic.LineReceiver, telnet.TelnetProtocol):
         return self.__enable(option, local=False)
 
     def __disable(self, option, local):
-        __log__.debug(
-            repr(('disableLocal' if local else 'disableRemote', option)))
+        __log__.debug(repr(("disableLocal" if local else "disableRemote", option)))
         if option in self.options:
             item = self.options[option]
             if local:
@@ -64,7 +74,10 @@ class MUDProtocol(basic.LineReceiver, telnet.TelnetProtocol):
                 return item.disableRemote()
         else:
             raise NotImplementedError(
-                "Don't know how to disable {} telnet option {!r}".format('local' if local else 'remote', option))
+                "Don't know how to disable {} telnet option {!r}".format(
+                    "local" if local else "remote", option
+                )
+            )
 
     def disableLocal(self, option):
         return self.__disable(option, local=True)

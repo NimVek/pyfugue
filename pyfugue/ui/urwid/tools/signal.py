@@ -12,8 +12,7 @@ class ISignal:
         urwid.signals.emit_signal(self, name, obj, *arguments)
 
     def forward_signal(self, obj, name):
-        urwid.signals.connect_signal(
-            obj, name, partial(self.__forward_signal, name))
+        urwid.signals.connect_signal(obj, name, partial(self.__forward_signal, name))
 
     def connect_signal(self, name, callback):
         urwid.signals.connect_signal(self, name, callback)

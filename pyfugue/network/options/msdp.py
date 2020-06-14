@@ -9,7 +9,7 @@ from . import option
 
 __log__ = logger.Logger()
 
-__all__ = ['MSDP']
+__all__ = ["MSDP"]
 
 
 VAR = chr(1)
@@ -30,14 +30,17 @@ class MSDP(option.Option):
         return True
 
     def _encode_v(self, value):
-        result = b''
+        result = b""
         if isinstance(value, abc.Mapping):
-            result = TABLE_OPEN + \
-                b''.join([self._convert_kv(k, v)
-                          for k, v in value.items()]) + TABLE_CLOSE
+            result = (
+                TABLE_OPEN
+                + b"".join([self._convert_kv(k, v) for k, v in value.items()])
+                + TABLE_CLOSE
+            )
         elif isinstance(value, abc.Sequence) and not isinstance(value, str):
-            result = ARRAY_OPEN + \
-                b''.join([self._convert_v(i) for i in value]) + ARRAY_CLOSE
+            result = (
+                ARRAY_OPEN + b"".join([self._convert_v(i) for i in value]) + ARRAY_CLOSE
+            )
         else:
             result = str(value).encode()
         return VAL + result
@@ -46,7 +49,7 @@ class MSDP(option.Option):
         return VAR + str(key).encode() + self._encode_v(value)
 
     def _startup(self):
-        self.requestNegotiation(self._encode_kv('LIST', 'LISTS'))
+        self.requestNegotiation(self._encode_kv("LIST", "LISTS"))
 
     def _decode(self, data):
         result = len(data)
@@ -84,11 +87,11 @@ class MSDP(option.Option):
         return (key, value, data)
 
     def negotiate(self, data):
-        (key, value, data) = self._decode_kv(b''.join(data))
-        assert data == b''
+        (key, value, data) = self._decode_kv(b"".join(data))
+        assert data == b""
         __log__.debug((self.name, key, value))
         if not key in self.values:
-            if key == 'LISTS':
+            if key == "LISTS":
                 for i in value:
-                    self.requestNegotiation(self._encode_kv('LIST', i))
+                    self.requestNegotiation(self._encode_kv("LIST", i))
         self.values[key] = value

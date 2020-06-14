@@ -13,8 +13,7 @@ __log__ = logging.getLogger(__name__)
 class UIController:
     def __init__(self):
         self.__main = urwid.WidgetWrap(None)
-        self.__loop = urwid.MainLoop(self.__main,
-                                     event_loop=urwid.TwistedEventLoop())
+        self.__loop = urwid.MainLoop(self.__main, event_loop=urwid.TwistedEventLoop())
 
         self.__log = widget.Log(self.loop)
 
@@ -35,7 +34,7 @@ class UIController:
         self.__loop.run()
 
     def stop(self):
-        __log__.debug('ui stop')
+        __log__.debug("ui stop")
         raise urwid.ExitMainLoop()
 
     def create_session(self, controller):

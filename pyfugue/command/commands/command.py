@@ -14,8 +14,7 @@ class Command:
 class OptionCommand(Command):
     def __init__(self):
         super().__init__()
-        self.parser = argparse.ArgumentParser(
-            prog=f'/{self.name}')
+        self.parser = argparse.ArgumentParser(prog=f"/{self.name}")
 
     def execute(self, session, *args):
         try:

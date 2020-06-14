@@ -5,11 +5,10 @@ from . import _fix
 
 
 class MUDTransport(_fix.TelnetTransport):
-
     def __init__(self, protocolFactory=None, *a, **kw):
         super().__init__(protocolFactory, *a, **kw)
         self.__busy = False
-        self.__buffer = b''
+        self.__buffer = b""
 
     def dataReceived(self, data):
         if self.__busy:
@@ -21,7 +20,8 @@ class MUDTransport(_fix.TelnetTransport):
             self.__buffer += data
             while self.__buffer:
                 before, separator, self.__buffer = self.__buffer.partition(
-                    telnet.IAC + telnet.SE)
+                    telnet.IAC + telnet.SE
+                )
                 if not separator and before.endswith(telnet.IAC):
                     self.__buffer = telnet.IAC + self.__buffer
                     before = before[:-1]

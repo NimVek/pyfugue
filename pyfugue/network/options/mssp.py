@@ -8,41 +8,37 @@ from . import option
 
 __log__ = logger.Logger()
 
-__all__ = ['MSSP']
+__all__ = ["MSSP"]
 
 
 CONVERTER = {
     # Required
-    'PLAYERS': int,
-    'UPTIME': lambda x: datetime.datetime.fromtimestamp(int(x)),
-
+    "PLAYERS": int,
+    "UPTIME": lambda x: datetime.datetime.fromtimestamp(int(x)),
     # Generic
-    'CRAWL DELAY': int,
+    "CRAWL DELAY": int,
     #        'PORT': int,
-    'CREATED': int,
-
+    "CREATED": int,
     # Protocols
-    'ANSI': lambda x: bool(int(x)),
-    'GMCP': lambda x: bool(int(x)),
-    'MCCP': lambda x: bool(int(x)),
-    'MCP': lambda x: bool(int(x)),
-    'MSDP': lambda x: bool(int(x)),
-    'MSP': lambda x: bool(int(x)),
-    'MXP': lambda x: bool(int(x)),
-    'PUEBLO': lambda x: bool(int(x)),
-    'ZMP': lambda x: bool(int(x)),
-    'UTF-8': lambda x: bool(int(x)),
-    'VT100': lambda x: bool(int(x)),
-    'XTERM 256 COLORS': lambda x: bool(int(x)),
-    'XTERM TRUE COLORS': lambda x: bool(int(x)),
-
+    "ANSI": lambda x: bool(int(x)),
+    "GMCP": lambda x: bool(int(x)),
+    "MCCP": lambda x: bool(int(x)),
+    "MCP": lambda x: bool(int(x)),
+    "MSDP": lambda x: bool(int(x)),
+    "MSP": lambda x: bool(int(x)),
+    "MXP": lambda x: bool(int(x)),
+    "PUEBLO": lambda x: bool(int(x)),
+    "ZMP": lambda x: bool(int(x)),
+    "UTF-8": lambda x: bool(int(x)),
+    "VT100": lambda x: bool(int(x)),
+    "XTERM 256 COLORS": lambda x: bool(int(x)),
+    "XTERM TRUE COLORS": lambda x: bool(int(x)),
     # Commercial
-    'PAY TO PLAY': lambda x: bool(int(x)),
-    'PAY FOR PERKS': lambda x: bool(int(x)),
-
+    "PAY TO PLAY": lambda x: bool(int(x)),
+    "PAY FOR PERKS": lambda x: bool(int(x)),
     # Hiring
-    'HIRING BUILDERS': lambda x: bool(int(x)),
-    'HIRING CODERS': lambda x: bool(int(x))
+    "HIRING BUILDERS": lambda x: bool(int(x)),
+    "HIRING CODERS": lambda x: bool(int(x)),
 }
 
 
@@ -59,7 +55,7 @@ class MSSP(option.Option):
 
     def negotiate(self, data):
         self.values = {}
-        data = b''.join(data)
+        data = b"".join(data)
         for var in data.split(VAR)[1:]:
             val = list(map(self.decode, var.split(VAL)))
             key = val[0]

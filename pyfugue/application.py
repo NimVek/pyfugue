@@ -26,5 +26,5 @@ class Application:
         self.ui.stop()
 
     def command(self, session, command):
-        __log__.debug(repr(('command', session, command)))
+        __log__.debug(repr(("command", session, command)))
         self.commands.execute(session, command)

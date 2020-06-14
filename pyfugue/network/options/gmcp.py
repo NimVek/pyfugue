@@ -7,7 +7,7 @@ from . import option
 
 __log__ = logger.Logger()
 
-__all__ = ['START_TLS']
+__all__ = ["START_TLS"]
 
 
 FOLLOWS = chr(1)
@@ -23,9 +23,10 @@ class STARTTLS(option.Option):
     def negotiate(self, data):
         __log__.debug(repr(data))
         __log__.debug(repr(FOLLOWS))
-        __log__.debug(repr(b''.join(data) == FOLLOWS))
+        __log__.debug(repr(b"".join(data) == FOLLOWS))
         self.requestNegotiation(FOLLOWS)
         self.protocol.transport.startTLS(ssl.CertificateOptions(verify=False))
+
 
 #    def size(self, width, height):
 #        self.requestNegotiation(struct.pack('!HH', width, height))

@@ -12,9 +12,9 @@ __log__ = logging.getLogger(__name__)
 
 class StreamToLog:
 
-    _buffer = ''
+    _buffer = ""
     _busy = False
-    _separator = r'\r\n|\r|\n'
+    _separator = r"\r\n|\r|\n"
 
     def __init__(self, func):
         self._func = func
@@ -30,7 +30,8 @@ class StreamToLog:
             while self._buffer:
                 try:
                     part, self._buffer = re.split(
-                        self._separator, self._buffer, maxsplit=1)
+                        self._separator, self._buffer, maxsplit=1
+                    )
                 except ValueError:
                     return len(data)
                 else:
@@ -73,16 +74,17 @@ class Controller:
         cmd, *args = shlex.split(line)
         command = self.search(cmd)
         if isinstance(command, commands.Command):
-            with contextlib.redirect_stdout(StreamToLog(__log__.info)), contextlib.redirect_stderr(StreamToLog(__log__.error)):
+            with contextlib.redirect_stdout(
+                StreamToLog(__log__.info)
+            ), contextlib.redirect_stderr(StreamToLog(__log__.error)):
                 command.execute(session, *args)
         else:
             if not command:
                 command = difflib.get_close_matches(cmd, self.commands.keys())
             if command:
-                __log__.warning(
-                    f'Command \'/{cmd}\' not found, did you mean:')
-                __log__.warning('')
+                __log__.warning(f"Command '/{cmd}' not found, did you mean:")
+                __log__.warning("")
                 for i in command:
-                    __log__.warning(f'  command \'/{i}\'')
+                    __log__.warning(f"  command '/{i}'")
             else:
-                __log__.error(f'/{cmd}: command not found')
+                __log__.error(f"/{cmd}: command not found")

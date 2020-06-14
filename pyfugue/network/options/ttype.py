@@ -10,7 +10,7 @@ from . import option
 
 __log__ = logger.Logger()
 
-__all__ = ['TTYPE']
+__all__ = ["TTYPE"]
 
 
 class MTTS(enum.Flag):
@@ -50,15 +50,15 @@ class TTYPE(option.Option):
         return True
 
     def negotiate(self, data):
-        assert b''.join(data) == SEND
+        assert b"".join(data) == SEND
         if self.state == State.CLIENT:
             self.state = State.TERMINAL_TYPE
             self._is(pyfugue.__title__)
         elif self.state == State.TERMINAL_TYPE:
             self.state = State.MTTS
-            self._is('ANSI')
+            self._is("ANSI")
         else:
-            self._is('MTTS %d' % self.mtts.value)
+            self._is("MTTS %d" % self.mtts.value)
 
     def _is(self, data):
         self.requestNegotiation(IS + (data.upper()).encode())

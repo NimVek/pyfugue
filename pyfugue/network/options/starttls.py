@@ -9,7 +9,7 @@ from . import option
 
 __log__ = logger.Logger()
 
-__all__ = ['STARTTLS']
+__all__ = ["STARTTLS"]
 
 
 FOLLOWS = chr(1)
@@ -23,7 +23,7 @@ class STARTTLS(option.Option):
         return True
 
     def negotiate(self, data):
-        assert b''.join(data) == FOLLOWS
+        assert b"".join(data) == FOLLOWS
         self.requestNegotiation(FOLLOWS)
         reactor.callLater(1, self._starttls)
 

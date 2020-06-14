@@ -13,4 +13,4 @@ class NAWS(option.Option):
         return True
 
     def size(self, width, height):
-        self.requestNegotiation(struct.pack('!HH', width, height))
+        self.requestNegotiation(struct.pack("!HH", width, height))

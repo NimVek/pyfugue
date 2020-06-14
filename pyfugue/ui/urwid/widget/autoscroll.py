@@ -5,7 +5,7 @@ from ..tools import ISignal
 
 
 class AutoScroll(urwid.WidgetWrap, ISignal):
-    signals = ['size']
+    signals = ["size"]
 
     def __init__(self):
         self.__lines = urwid.SimpleListWalker([])
@@ -27,7 +27,7 @@ class AutoScroll(urwid.WidgetWrap, ISignal):
     def size(self, value):
         if not self.size or value[0] != self.size[0] or value[1] != self.size[1]:
             self.__size = value
-            self.emit_signal('size', *value)
+            self.emit_signal("size", *value)
 
     def render(self, size, focus=False):
         canvas = super().render(size, focus)
@@ -37,8 +37,7 @@ class AutoScroll(urwid.WidgetWrap, ISignal):
     def keypress(self, size, key):
         result = super().keypress(size, key)
         if not result:
-            if key in ['up', 'page up']:
+            if key in ["up", "page up"]:
                 self.autoscroll = False
-            elif key in ['down', 'page down']:
-                self.autoscroll = self.__display.focus_position == len(
-                    self.__lines) - 1
+            elif key in ["down", "page down"]:
+                self.autoscroll = self.__display.focus_position == len(self.__lines) - 1

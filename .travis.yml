@@ -1,3 +1,8 @@
 language: python
 script:
     - pytest
+
+addons:
+    apt:
+	packages:
+	- libgirepository1.0-dev

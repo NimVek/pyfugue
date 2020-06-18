@@ -43,7 +43,12 @@ gui = [ "PyGObject" ]
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+pytest-cov = "^2.10.0"
+pre-commit = "^2.5.1"
 black = "^19.10b0"
+flake8 = "^3.8.3"
+mypy = "^0.780"
+isort = "^4.3.21"
 
 [tool.poetry.scripts]
 pyfugue = "pyfugue:main"

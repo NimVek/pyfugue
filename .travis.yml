@@ -18,10 +18,6 @@ jobs:
       install:
         - pip install pre-commit
         - pre-commit install-hooks
-      addons:
-        apt:
-          packages:
-          - libgirepository1.0-dev
       script:
         - pre-commit run --all-files
     - stage: test

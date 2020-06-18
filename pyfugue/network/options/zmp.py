@@ -6,6 +6,7 @@ from twisted.python.compat import _bytesChr as chr
 
 from . import option
 
+
 __log__ = logger.Logger()
 
 __all__ = ["ZMP"]
@@ -44,7 +45,7 @@ class ZMP(option.Option):
         self.send("zmp.support", package)
 
     def input(self, line):
-        self.send("zmp.input", package)
+        self.send("zmp.input", line)
 
     def send(self, command, *args):
         data = NUL.join(map(self.encode, [command, *args])) + NUL

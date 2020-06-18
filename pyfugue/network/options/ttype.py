@@ -2,11 +2,13 @@
 import enum
 import telnetlib
 
-import pyfugue
 from twisted import logger
 from twisted.python.compat import _bytesChr as chr
 
+import pyfugue
+
 from . import option
+
 
 __log__ = logger.Logger()
 

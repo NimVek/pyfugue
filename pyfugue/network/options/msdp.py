@@ -7,6 +7,7 @@ from twisted.python.compat import _bytesChr as chr
 
 from . import option
 
+
 __log__ = logger.Logger()
 
 __all__ = ["MSDP"]
@@ -90,7 +91,7 @@ class MSDP(option.Option):
         (key, value, data) = self._decode_kv(b"".join(data))
         assert data == b""
         __log__.debug((self.name, key, value))
-        if not key in self.values:
+        if key not in self.values:
             if key == "LISTS":
                 for i in value:
                     self.requestNegotiation(self._encode_kv("LIST", i))

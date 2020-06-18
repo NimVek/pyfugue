@@ -7,5 +7,6 @@ Provides pyfugue version information.
 
 from incremental import Version
 
-__version__ = Version('pyfugue', 0, 0, 1)
+
+__version__ = Version("pyfugue", 0, 0, 1)
 __all__ = ["__version__"]

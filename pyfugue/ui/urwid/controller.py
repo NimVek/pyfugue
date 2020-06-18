@@ -7,6 +7,7 @@ import urwid
 
 from . import session, widget
 
+
 __log__ = logging.getLogger(__name__)
 
 

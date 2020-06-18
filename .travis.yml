@@ -1,6 +1,11 @@
 language: python
 dist: focal
 
+cache:
+  pip: true
+  directories:
+    - $HOME/.cache/pre-commit
+
 addons:
   apt:
     packages:

@@ -21,6 +21,10 @@ jobs:
       script:
         - pre-commit run --all-files
     - stage: test
+      addons:
+        apt:
+          packages:
+            - libgirepository1.0-dev
       install:
         - pip install --upgrade pip
         - pip install poetry

@@ -31,3 +31,6 @@ jobs:
         - poetry install --verbose --extras "tui gui"
       script:
         - pytest --cov
+
+after_success:
+  coveralls

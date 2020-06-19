@@ -19,19 +19,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      uses: abatilo/actions-poetry@v1.5.0
+      uses: abatilo/actions-poetry@v1.8.0
       with:
         python_version: ${{ matrix.python-version }}
         poetry_version: 1.0
         args: install --extras tui
     - name: Lint
-      uses: abatilo/actions-poetry@v1.5.0
+      uses: abatilo/actions-poetry@v1.8.0
       with:
         python_version: ${{ matrix.python-version }}
         poetry_version: 1.0
         args: run pre-commit run --all-files
     - name: Test
-      uses: abatilo/actions-poetry@v1.5.0
+      uses: abatilo/actions-poetry@v1.8.0
       with:
         python_version: ${{ matrix.python-version }}
         poetry_version: 1.0

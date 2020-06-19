@@ -30,7 +30,7 @@ jobs:
         - pip install poetry
         - poetry install --verbose --extras "tui gui"
       script:
-        - pytest --cov
+        - pytest --cov=src
 
 after_success:
   coveralls

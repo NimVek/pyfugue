@@ -16,19 +16,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
     - name: Install dependencies
-      run: |
-        pip install --upgrade pip
-        pip install poetry
-        poetry install --verbose --extra tui
+      uses: abatilo/actions-poetry@v1.5.0
+      with:
+        python_version: ${{ matrix.python-version }}
+        poetry_version: 1.0
+        args: install --extras tui
     - name: Lint
-      run: |
-        poetry run pre-commit install-hooks
-        poetry run pre-commit run --all-files
+      uses: abatilo/actions-poetry@v1.5.0
+      with:
+        python_version: ${{ matrix.python-version }}
+        poetry_version: 1.0
+        args: run pre-commit run --all-files
     - name: Test
-      run: |
-        poetry run pytest -cov
+      uses: abatilo/actions-poetry@v1.5.0
+      with:
+        python_version: ${{ matrix.python-version }}
+        poetry_version: 1.0
+        args: run pytest -cov

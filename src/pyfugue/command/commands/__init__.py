@@ -1,4 +1,3 @@
 # -*- coding: utf-8 -*-
-from .app import *
-from .command import *
-from .connection import *
+from .app import Quit
+from .connection import Connect

@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from .controller import *
+from .controller import Controller

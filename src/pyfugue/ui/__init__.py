@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from .urwid import *
+from .urwid import UIController

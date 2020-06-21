@@ -18,7 +18,7 @@ class OptionCommand(Command):
 
     def execute(self, session, *args):
         try:
-            args = self.parser.parse_args(args)
+            args = self.parser.parse_args(args)  # type: ignore
         except SystemExit:
             pass
         else:

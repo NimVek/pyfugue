@@ -12,7 +12,7 @@ class TelnetTransport(telnet.TelnetTransport):
         appDataBuffer = []
 
         for b in iterbytes(data):
-            if self.state == "data":
+            if self.state == "data":  # type: ignore
                 if b == telnet.IAC:
                     self.state = "escaped"
                 elif b == b"\r":

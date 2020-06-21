@@ -61,7 +61,7 @@ class MSSP(option.Option):
             val = list(map(self.decode, var.split(VAL)))
             key = val[0]
             if key in CONVERTER:
-                val = list(map(CONVERTER[key], val[1:]))
+                val = list(map(CONVERTER[key], val[1:]))  # type: ignore
             else:
                 val = val[1:]
             if len(val) == 1:

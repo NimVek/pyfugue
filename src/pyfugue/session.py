@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from typing import Any
+
 from twisted.internet import reactor
 from twisted.logger import Logger
 
@@ -12,7 +14,7 @@ class Session:
     def __init__(self, app):
         self.app = app
         self.ui = self.app.ui.create_session(self)
-        self.connection = None
+        self.connection = None  # type: Any
 
     @property
     def connected(self):
@@ -28,7 +30,6 @@ class Session:
     def connect(self, host, port):
         factory = network.MUDClientFactory(self)
         reactor.connectTCP(host, port, factory)
-        pass
 
     def commit(self, text):
         if text.startswith("/"):
@@ -38,8 +39,6 @@ class Session:
                 __log__.warn("Not Connected")
             else:
                 self.connection.protocol.transport.write((text + "\r\n").encode())
-                # sending
-                pass
 
     #    def hook(self,
     def received(self, line):

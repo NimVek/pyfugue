@@ -76,8 +76,10 @@ class Controller:
         command = self.search(cmd)
         if isinstance(command, commands.Command):
             with contextlib.redirect_stdout(
-                StreamToLog(__log__.info)
-            ), contextlib.redirect_stderr(StreamToLog(__log__.error)):
+                StreamToLog(__log__.info)  # type: ignore
+            ), contextlib.redirect_stderr(
+                StreamToLog(__log__.error)  # type: ignore
+            ):
                 command.execute(session, *args)
         else:
             if not command:

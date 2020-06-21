@@ -35,12 +35,12 @@ class MSDP(option.Option):
         if isinstance(value, abc.Mapping):
             result = (
                 TABLE_OPEN
-                + b"".join([self._convert_kv(k, v) for k, v in value.items()])
+                + b"".join([self._encode_kv(k, v) for k, v in value.items()])
                 + TABLE_CLOSE
             )
         elif isinstance(value, abc.Sequence) and not isinstance(value, str):
             result = (
-                ARRAY_OPEN + b"".join([self._convert_v(i) for i in value]) + ARRAY_CLOSE
+                ARRAY_OPEN + b"".join([self._encode_v(i) for i in value]) + ARRAY_CLOSE
             )
         else:
             result = str(value).encode()
@@ -72,10 +72,10 @@ class MSDP(option.Option):
             return (result, data[1:])
         elif data[1:2] == ARRAY_OPEN:
             data = data[2:]
-            result = []
+            result = []  # type: ignore
             while data[:1] == VAL:
                 (value, data) = self._decode_v(data)
-                result.append(value)
+                result.append(value)  # type: ignore
             assert data[:1] == ARRAY_CLOSE
             return (result, data[1:])
         else:

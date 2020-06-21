@@ -12,7 +12,7 @@ class Readline(urwid.Edit, ISignal):
         self.keymap = {"enter": self.commit}
 
     def commit(self):
-        self.emit_signal("commit", self.edit_text)
+        self.emit_signal("commit", self.edit_text)  # type: ignore
         self.edit_text = ""
 
     def keypress(self, size, key):

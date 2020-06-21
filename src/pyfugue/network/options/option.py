@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class Option:
 
-    code = bytes()
+    code = None  # type: bytes
 
     def __init__(self, protocol):
         self.protocol = protocol

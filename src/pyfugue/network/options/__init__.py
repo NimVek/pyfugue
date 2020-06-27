@@ -2,6 +2,7 @@
 import telnetlib
 
 from . import option
+from .gmcp import GMCP
 from .msdp import MSDP
 from .mssp import MSSP
 from .naws import NAWS
@@ -10,7 +11,17 @@ from .ttype import TTYPE
 from .zmp import ZMP
 
 
-__all__ = ["NAWS", "STARTTLS", "MSSP", "ZMP", "TTYPE", "MSDP", "EOR", "TIMING_MARK"]
+__all__ = [
+    "NAWS",
+    "STARTTLS",
+    "MSSP",
+    "ZMP",
+    "TTYPE",
+    "MSDP",
+    "EOR",
+    "TIMING_MARK",
+    "GMCP",
+]
 
 
 class EOR(option.Option):

@@ -22,6 +22,7 @@ class MUDProtocol(basic.LineReceiver, telnet.TelnetProtocol):
             options.ZMP,
             options.TTYPE,
             options.MSDP,
+            options.GMCP,
             options.TIMING_MARK,
         ]:
             self.options[option.code] = option(self)

@@ -7,4 +7,4 @@ __title__ = "pyfugue"
 
 
 def main():
-    Application().start( )
+    Application().start()

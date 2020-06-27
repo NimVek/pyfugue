@@ -13,15 +13,13 @@ class Message:
 
 Subscriber = Callable[[Message], None]
 
-_publisher: Optional["Publisher"] = None
-
 
 class Publisher:
     class Entry(NamedTuple):
         subscriber: Subscriber
         priority: float = 1
 
-    def __init__(self, parent: Optional["Publisher"] = _publisher) -> None:
+    def __init__(self, parent: Optional["Publisher"] = None) -> None:
         self.__subscribers: Dict[Hashable, Set[Publisher.Entry]] = {}
         self.__parent = parent
 
@@ -33,9 +31,10 @@ class Publisher:
         self.__subscribers[topic].add(Publisher.Entry(subscriber, priority))
 
     def __entrys(self, topic: Hashable, parent: bool) -> Set["Publisher.Entry"]:
-        result: Set[Publisher.Entry] = self.__subscribers.get(topic, set())
+        result: Set[Publisher.Entry] = set()
         if self.__parent and parent:
             result.update(self.__parent.__entrys(topic, parent))
+        result.update(self.__subscribers.get(topic, set()))
         return result
 
     def publish(self, message: Message, parent: bool = True) -> None:
@@ -47,5 +46,6 @@ class Publisher:
 
 
 _publisher = Publisher(None)
+Publisher.__init__.__defaults__ = (_publisher,)  # type: ignore[attr-defined]
 subscribe = _publisher.subscribe
 publish = _publisher.publish

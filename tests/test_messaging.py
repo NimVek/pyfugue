@@ -81,3 +81,26 @@ class TestGlobal:
         captured = capsys.readouterr()
 
         assert captured.out == "global\n"
+
+
+class TestComplex:
+    def test_register_global(self, capsys):
+        subscribe("complex", lambda x: print("complex_global"), 50)
+        p1 = Publisher()
+        p1.subscribe("complex", lambda x: print("complex_p1"), 25)
+        p2 = Publisher()
+        p2.subscribe("complex", lambda x: print("complex_p2"), 20)
+
+        p1.publish(Message("complex", "complex"))
+        print(":next:")
+        p2.publish(Message("complex", "complex"))
+        print(":next:")
+        p1.publish(Message("complex", "complex"), False)
+
+        captured = capsys.readouterr()
+
+        assert (
+            captured.out == "complex_global\ncomplex_p1\n:next:\n"
+            "complex_global\ncomplex_p2\n:next:\n"
+            "complex_p1\n"
+        )

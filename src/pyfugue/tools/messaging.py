@@ -26,9 +26,8 @@ class Publisher:
     def subscribe(
         self, topic: Hashable, subscriber: Subscriber, priority: float = 1
     ) -> None:
-        if topic not in self.__subscribers:
-            self.__subscribers[topic] = set()
-        self.__subscribers[topic].add(Publisher.Entry(subscriber, priority))
+        subscribers = self.__subscribers.setdefault(topic, set())
+        subscribers.add(Publisher.Entry(subscriber, priority))
 
     def __entrys(self, topic: Hashable, parent: bool) -> Set["Publisher.Entry"]:
         result: Set[Publisher.Entry] = set()

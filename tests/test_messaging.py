@@ -83,6 +83,22 @@ class TestGlobal:
         assert captured.out == "global\n"
 
 
+class TestPropagation:
+    @pytest.mark.parametrize(
+        "topic, propagate, output",
+        [("propagate", True, "global\nlocal\n"), ("nopropagate", False, "local\n")],
+    )
+    def test_propagate(self, topic, propagate, output, capsys):
+        subscribe(topic, lambda x: print("global"), 50)
+        publisher = Publisher()
+        publisher.subscribe(topic, lambda x: print("local"), 25)
+        publisher.publish(Message(topic), propagate)
+
+        captured = capsys.readouterr()
+
+        assert captured.out == output
+
+
 class TestComplex:
     def test_register_global(self, capsys):
         subscribe("complex", lambda x: print("complex_global"), 50)

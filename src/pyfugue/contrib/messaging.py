@@ -8,7 +8,14 @@ class Message:
     def __init__(self, topic: Hashable, content: Optional[Any] = None) -> None:
         self.topic = topic
         self.content = content
-        self.discard: bool = False
+        self.__discarded: bool = False
+
+    def discard(self):
+        self.__discarded = True
+
+    @property
+    def discarded(self):
+        return self.__discarded
 
 
 Subscriber = Callable[[Message], None]
@@ -40,7 +47,7 @@ class Publisher:
         entrys = self.__entrys(message.topic, parent)
         for i in sorted(entrys, key=lambda x: x.priority, reverse=True):
             i.subscriber(message)
-            if message.discard:
+            if message.discarded:
                 break
 
 

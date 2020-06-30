@@ -1,6 +1,6 @@
 import pytest
 
-from pyfugue.tools.messaging import Message, Publisher, publish, subscribe
+from pyfugue.contrib.messaging import Message, Publisher, publish, subscribe
 
 
 class TestSubscrition:
@@ -59,7 +59,7 @@ class TestPriorityDiscard:
 
     def test_discard(self, capsys):
         def discard(message):
-            message.discard = True
+            message.discard()
 
         publisher = Publisher(None)
         publisher.subscribe("test", lambda x: print("first"), 100)

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import urwid
 
+from pyfugue.tools import hook
+
 from . import widget
 
 
@@ -29,6 +31,7 @@ class UISession(urwid.Frame):
         )
         self.prompt = "> "
         self.__input.connect_signal("commit", self.on_commit)
+        self.session.subscribe(hook.Hooks.DISPLAY, self.msg_display, hook.MIN)
 
     @property
     def size(self):
@@ -57,6 +60,9 @@ class UISession(urwid.Frame):
     @log.setter
     def log(self, log):
         self.__log._w = log
+
+    def msg_display(self, message):
+        self.display(message.content)
 
     def display(self, text):
         self.__output.append(urwid.Text(text))

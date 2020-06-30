@@ -5,13 +5,16 @@ from twisted.internet import reactor
 from twisted.logger import Logger
 
 from . import network
+from .contrib import messaging
+from .tools.hook import Hooks
 
 
 __log__ = Logger()
 
 
-class Session:
+class Session(messaging.Publisher):
     def __init__(self, app):
+        super().__init__()
         self.app = app
         self.ui = self.app.ui.create_session(self)
         self.connection = None  # type: Any
@@ -40,6 +43,5 @@ class Session:
             else:
                 self.connection.protocol.transport.write((text + "\r\n").encode())
 
-    #    def hook(self,
     def received(self, line):
-        self.ui.display(line)
+        self.publish(messaging.Message(Hooks.DISPLAY, line))

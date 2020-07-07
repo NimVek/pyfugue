@@ -17,7 +17,7 @@ class Grid(urwid.WidgetWrap):
         result = 0
         if self._w.contents:
             item_count = len(self._w.contents)
-            result = max([len(i[0].text) for i in self._w.contents])
+            result = max(len(i[0].text) for i in self._w.contents)
             if self.width:
                 tmp = self.width // (result + 1)
                 tmp = math.ceil(item_count / tmp)

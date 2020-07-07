@@ -15,7 +15,7 @@ class TestSubscrition:
         assert captured.out == "local\n"
 
     @pytest.mark.parametrize(
-        "topic, output", [("subscribed", "subscribed\n"), ("notsubscribed", "")]
+        ("topic", "output"), [("subscribed", "subscribed\n"), ("notsubscribed", "")]
     )
     def test_topic(self, topic, output, capsys):
         publisher = Publisher(None)
@@ -29,7 +29,7 @@ class TestSubscrition:
 
 class TestPriorityDiscard:
     @pytest.mark.parametrize(
-        "subscriber, output",
+        ("subscriber", "output"),
         [
             (
                 (
@@ -85,7 +85,7 @@ class TestGlobal:
 
 class TestPropagation:
     @pytest.mark.parametrize(
-        "topic, propagate, output",
+        ("topic", "propagate", "output"),
         [("propagate", True, "global\nlocal\n"), ("nopropagate", False, "local\n")],
     )
     def test_propagate(self, topic, propagate, output, capsys):

@@ -30,7 +30,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.8"
 incremental = "^17.5.0"
-Twisted = "^20.3.0"
+Twisted = "^21.2.0"
 pyOpenSSL = "^19.1.0"
 service_identity = "^18.1.0"
 appdirs = "^1.4.4"
